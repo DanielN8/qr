@@ -1,0 +1,105 @@
+/* Estilos del escáner */
+.scanner-container {
+    position: relative;
+    width: 50%;
+    max-width: 600px;
+    max-height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.scanner-container video {
+    width: 130%;
+    height: 100%;
+}
+
+.frame {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 60%;
+    border-width: 3.5px;
+    border-style: solid;
+    border-color: red;
+    box-sizing: border-box;
+    opacity: 0.8;
+    background-color: transparent; 
+}
+
+.frame-detected {
+    border-color: green; 
+}
+
+.camera-view {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.red-frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.qr-instructions {
+    color: black;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.detection-message {
+    position: absolute;
+    bottom: -40px;
+    width: 100%;
+    text-align: center;
+    color: black;
+}
+
+.btn {
+    background-color: lightblue;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: blue;
+}
+
+.qr-success-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 128, 0, 0.9);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    z-index: 10;
+}
+
+.video-reflect {
+    transform: scaleX(-1);
+    transform-origin: center center;
+}

@@ -1,0 +1,4 @@
+ID,Nombre,Apellido,Email,Edad,Ocupación,Género,Evento,Fecha de Registro,Asistencia
+us01,Daniel,Nie,danieln@gmail.com,19,,,PyCon2024,,0
+,,,,,,,,,
+us01,Giancarlo,Santillana,giancarlosantillana@gmail.com,19,Universitario,Masculino,PyCon2024,29/7/2024,0
