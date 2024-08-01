@@ -11,5 +11,5 @@ Currently, two official plugins are available:
 
 Para iniciar el programa escribir
 
-#npm run start
+**npm run start**
 
