@@ -1,5 +1,5 @@
 
-# Instrucciones de uso para correr el programa
+# Instrucciones de uso para ejecutar el programa
 
 Para iniciar el programa escribir
 
