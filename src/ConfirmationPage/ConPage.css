@@ -1,0 +1,67 @@
+/* ConPage.css */
+body {
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.ConPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Alineación hacia arriba */
+    width: 100%; /* Asegúrate de que cubra todo el ancho */
+    max-width: 800px; /* Limitamos el ancho máximo */
+    margin: 0px auto; /* Centramos el contenido */
+}
+
+.header {
+    border-radius: 5px 5px 0 0; /* Bordes redondeados solo en la parte superior */
+    width: 100%; /* Hacer el header del ancho completo */
+    background-color: #07752d; /* Color de fondo del header */
+    padding: 20px; /* Espaciado interno */
+    color: white; /* Color del texto */
+    text-align: center; /* Centramos el texto */
+    margin-bottom: -5px; /* Margen abajo al header para separar de contenido */
+}
+
+.confirmation-page {
+    padding: 20px; /* Espaciado interno */
+    background: white; /* Fondo blanco para la parte de confirmación */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    width: 100%; /* Para que ocupe todo el ancho del contenedor */
+    border-radius: 0 0 5px 5px; /* Bordes redondeados solo en la parte inferior */
+}
+
+.confirmation-details {
+    text-align: center; /* Centrar el texto en los detalles */
+}
+
+.qr-code-container {
+    padding: 20px; /* Espaciado interno para el QR */
+    background: white; /* Fondo blanco para el QR */
+    border-radius: 8px; /* Bordes redondeados (opcional) */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra suave (opcional) */
+    display: inline-block; /* Mantener el contenedor del QR como bloque en línea para centrar */
+}
+
+.download-container {
+    margin-top: 20px; /* Margen superior para el botón de descarga */
+}
+
+.btn {
+    padding: 10px 20px; /* Espaciado interno para el botón */
+    background-color: #007bff; /* Color de fondo del botón */
+    color: white; /* Color del texto */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cambiar cursor al pasar por encima */
+    transition: background-color 0.3s; /* Transición para el hover */
+}
+
+.btn:hover {
+    background-color: #0056b3; /* Color de fondo del botón al pasar el mouse */
+}
+
+.informacion-personal{
+    text-align: left;    
+}

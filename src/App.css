@@ -48,6 +48,12 @@
   cursor: pointer;
 }
 
+.boton-registrarse {
+  display: flex;           
+  justify-content: center; 
+  width: 100%;            
+}
+
 .btn:hover {
   background-color: #0056b3;
 }
@@ -65,14 +71,6 @@
   border: 1px solid #ddd;
   border-radius: 8px;
   background-color: #fff;
-}
-
-.download-container {
-  margin-top: 10px;
-}
-
-.restablecer-btn {
-  margin-top: 10px;
 }
 
 .frame-detected {

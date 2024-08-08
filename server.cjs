@@ -1,6 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const nodemailer = require('nodemailer');
+const crypto = require('crypto');
 const { createClient } = require('@libsql/client');
 const app = express();
 // Puerto del servidor único
@@ -70,6 +72,50 @@ app.post('/api/asistencias', async (req, res) => {
         handleError(res, 'Error al agregar el usuario a la base de datos.');
     }
 });
+
+// Verificación de Correos
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: '',
+      pass: ''
+    }
+  });
+  
+  app.use(express.json());
+  
+  app.post('/send-verification', (req, res) => {
+    const { email } = req.body;
+  
+    if (!email) {
+      return res.status(400).json({ error: 'Email es requerido' });
+    }
+  
+    const token = crypto.randomBytes(20).toString('hex');
+    const expirationDate = Date.now() + 20 * 60 * 1000; 
+
+    const mailOptions = {
+      from: 'noreply@tu-dominio.com',
+      to: email,
+      subject: 'Verificación de correo electrónico',
+      text: `Por favor, verifica tu correo electrónico usando el siguiente enlace: \n\n` +
+            `http://tu-dominio.com/verify/${token} \n\n` +
+            `Este enlace es válido por 20 minutos.`
+    };
+  
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        return res.status(500).json({ error: 'Error al enviar el correo' });
+      }
+      res.status(200).json({ message: 'Correo de verificación enviado' });
+    });
+  });
+
+// Fin función del correo
+
+
+
+
 
 // Iniciar el servidor con el puerto indicado
 app.listen(port, () => {

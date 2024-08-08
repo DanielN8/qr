@@ -1,33 +1,18 @@
+// src/App.jsx
 import './App.css';
 import { useState, useRef, useEffect, useCallback, memo } from 'react';
-import QRCode from 'qrcode.react';
-import html2canvas from 'html2canvas';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import * as XLSX from 'xlsx';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import AppScanner from './AppScanner';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import ConPage from './ConfirmationPage/ConPage'; // Importa el componente ConPage
 
 // Componente para mostrar el QR generado y permitir su descarga
-const QRCodeDisplay = memo(({ generatedQR, qrRef, handleDownload, isDownloading, handleClearQR }) => (
+const QRCodeDisplay = memo(({ generatedQR, qrRef, isDownloading, handleClearQR }) => (
   <div className="QRCodeContainer">
-    {generatedQR && (
-      <>
-        <div ref={qrRef}>
-          <QRCode value={generatedQR} />
-        </div>
-        <div className="download-container">
-          <button onClick={handleDownload} className="btn" disabled={isDownloading}>
-            {isDownloading ? 'Descargando...' : 'Descargar QR'}
-          </button>
-        </div>
-      </>
-    )}
-    {generatedQR && (
-      <button onClick={handleClearQR} className="btn restablecer-btn">Restablecer QR</button>
-    )}
+    {/* QR code display code removed */}
   </div>
 ));
 
@@ -158,6 +143,7 @@ function GenerateQRPage() {
   const [isDownloading, setIsDownloading] = useState(false);
   const [errors, setErrors] = useState({});
   const [asistencias, setAsistencias] = useState([]);
+  const navigate = useNavigate(); // Hook para la navegación
 
   // Cargar asistencias al cargar la página
   useEffect(() => {
@@ -185,39 +171,9 @@ function GenerateQRPage() {
     const qrData = `${cedula}\n${nombre}\n${apellido}\n${correoInstitucional}\n${facultad}\n${carrera}`;
     setQR(qrData.trim());
     await cargarAsistenciasBD(setAsistencias);
-  };
 
-  // Función para descargar el QR
-  const handleDownload = async () => {
-    if (isDownloading) return;
-    setIsDownloading(true);
-    toast.dismiss();
-    toast.info('Se ha comenzado la descarga...', { autoClose: 2000 });
-
-    if (qrRef.current) {
-      try {
-        const canvas = await html2canvas(qrRef.current, { backgroundColor: null });
-        const paddedCanvas = document.createElement('canvas');
-        const context = paddedCanvas.getContext('2d');
-
-        const padding = 20; 
-        paddedCanvas.width = canvas.width + padding * 2; 
-        paddedCanvas.height = canvas.height + padding * 2; 
-        context.fillStyle = 'white';
-        context.fillRect(0, 0, paddedCanvas.width, paddedCanvas.height);
-        context.drawImage(canvas, padding, padding);
-
-        const link = document.createElement('a');
-        link.href = paddedCanvas.toDataURL('image/png');
-        link.download = 'qr-code.png';
-        link.click();
-        setTimeout(() => setIsDownloading(false), 2000);
-      } catch (error) {
-        console.error('Error al generar la imagen del QR:', error);
-        toast.error('Error al generar la imagen del QR.');
-        setIsDownloading(false);
-      }
-    }
+    // Redirige a ConPage pasando los datos
+    navigate('/confirm', { state: { cedula, nombre, apellido, correoInstitucional, facultad, carrera, generatedQR: qrData.trim() } });
   };
 
   // Función para limpiar el QR
@@ -234,7 +190,7 @@ function GenerateQRPage() {
 
   return (
     <div className="tab-content">
-      <h1>Generar QR</h1>
+      <h2>Formulario de registro</h2>
       <div className="input-container">
         <label>Cédula:</label>
         <input type="text" placeholder="Cédula" value={cedula} onChange={(e) => setCedula(e.target.value)} className="input-field" />
@@ -278,11 +234,12 @@ function GenerateQRPage() {
         </select>
         {errors.carrera && <span className="error-message">{errors.carrera}</span>}
       </div>
-      <button onClick={handleGenerateQR} className="btn">Generar QR</button>
+      <div className='boton-registrarse'>
+        <button onClick={handleGenerateQR} className="btn">Registrarse</button>
+      </div>
       <QRCodeDisplay
         generatedQR={generatedQR}
         qrRef={qrRef}
-        handleDownload={handleDownload}
         isDownloading={isDownloading}
         handleClearQR={handleClearQR}
       />
@@ -425,6 +382,7 @@ function App() {
         <Routes>
           <Route path="/" element={<GenerateQRPage />} />
           <Route path="/escanear" element={<ScanQRPage />} />
+          <Route path="/confirm" element={<ConPage />} /> {/* Ruta a ConPage */}
         </Routes>
         <ToastContainer />
       </div>
